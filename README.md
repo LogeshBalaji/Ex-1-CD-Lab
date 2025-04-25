@@ -14,67 +14,54 @@
 8.	Stop the program. 
 # PROGRAM
 ```.py
-#include <stdio.h>
-#include <ctype.h>
-#include <string.h>
-#include <stdlib.h>
-#define MAX_EXPRESSION_SIZE 100
-
-int main() {
-    int i = 0, j = 0, x = 0, n, flag = 0;
-    char b[MAX_EXPRESSION_SIZE], d[15], c, srch;
-
-    printf("Enter the Expression terminated by $: ");
-    while ((c = getchar()) != '$' && i < MAX_EXPRESSION_SIZE - 1) {
-        b[i++] = c;
+} 
+b[i] = '\0'; n = i - 1;
+printf("Given Expression: %s\n", b);
+printf("\nSymbol Table\n"); 
+printf("Symbol\taddr\ttype\n");
+for (j = 0; j <= n; j++) 
+{
+    c = b[j]; 
+    if (isalpha((unsigned char)c)) 
+    { 
+        if (j == n || b[j + 1] == '+' || b[j + 1] == '-' || b[j + 1] == '*' || b[j + 1] == '=') 
+        { 
+            void *p = malloc(sizeof(char)); 
+            if (p == NULL) 
+            { 
+                printf("Memory allocation failed\n");
+                return 1; 
+            } 
+            add[x] = p; d[x] = c; 
+            printf("%c\t%p\tidentifier\n", c, p); x++; 
+        } 
     }
-    b[i] = '\0'; 
-    n = i - 1;
-
-    printf("\nGiven Expression: %s\n", b);
-
-    printf("\nSymbol Table\n");
-    printf("Symbol\tType\n");
-
-    for (j = 0; j <= n; j++) {
-        c = b[j];
-        if (isalpha((unsigned char)c)) {
-            int alreadyExists = 0;
-            for (int k = 0; k < x; k++) {
-                if (d[k] == c) {
-                    alreadyExists = 1;
-                    break;
-                }
-            }
-
-            if (!alreadyExists) {
-                d[x] = c;
-                printf("%c\tidentifier\n", c);
-                x++;
-            }
-        }
-    }
-    while ((c = getchar()) != '\n' && c != EOF);
-
-    printf("\nEnter the symbol to search: ");
-    srch = getchar();
-
-    for (i = 0; i < x; i++) {
-        if (srch == d[i]) {
-            printf("Symbol Found\n");
-            flag = 1;
-            break;
-        }
-    }
-    if (flag == 0)
-        printf("Symbol Not Found\n");
-
-    return 0;
 }
+printf("\nThe symbol to be searched: "); 
+getchar(); srch = getchar();
+for (i = 0; i < x; i++) 
+{ 
+    if (srch == d[i]) 
+    { 
+    printf("Symbol Found\n"); 
+    printf("%c@address %p\n", srch, add[i]); 
+    flag = 1; break; 
+    } 
+}
+if (flag == 0) 
+{
+    printf("Symbol Not Found\n");
+}
+for (i = 0; i < x; i++) 
+{ 
+    free(add[i]);
+}
+return 0;
 ```
 # OUTPUT
-![Screenshot 2025-04-11 104923](https://github.com/user-attachments/assets/f5c1ad77-7502-4bcb-b026-46b5b67aaf55)
-![Screenshot 2025-04-11 105005](https://github.com/user-attachments/assets/20419d4a-c7ea-419f-93ae-bfd4b3e8c392)
+![What![WhatsApp Image 2025-04-25 at 3 07 50 PM (1)](https://github.com/user-attachments/assets/e134b18e-8f8e-42b3-93f3-984ac6dd0441)
+
+![WhatsApp Image 2025-04-25 at 3 07 50 PM (1)](https://github.com/user-attachments/assets/ded3254f-38b9-4b8b-86ac-80b428292ddd)
 
 # RESULT
 ### The program to implement a symbol table is executed and the output is verified.
